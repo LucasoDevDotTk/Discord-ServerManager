@@ -1,13 +1,4 @@
-# Discord-ServerManager Utility Bot
-
-<p align="center">
-<img title="" alt="404 IMAGE NOT FOUND" src="./assets/servermanager_logo.png" width="500">
-</p>
-
-ServerManager is a bot aimed to help admins, moderators, staffs and server owners in Discord servers. You will have to host the bot on your own. The Bot is currently in beta or in development stage as many call it, therefore features may be unstable or unusable. ServerManager will be open source licensed under the MIT License, see in LICENSE. LEL Studios is the current developer of the Bot, make sure to check our other projects on GitHub at https://github.com/LEL-Studios.
-___
-
-## LICENSE
+"""
 MIT License
 
 Copyright (c) 2021 lucaso60
@@ -32,12 +23,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+"""
+
+import os 
+import json
+
+from functions.functions import time_now
 
 
-## Instructions
-- Download Python from https://python.org
-- Download pycord - `pip install py-cord`
-- Run the `launcher.py` file
+def get_config(CONFIG_FOLDER_PATH):
+    if os.path.exists(CONFIG_FOLDER_PATH):
 
-## Contact
-📫You can see our contact information on our GitHub page. 📫
+        with open(CONFIG_FOLDER_PATH) as f:
+            config_data = json.load(f)
+            return config_data
+    else:
+        config_temp = {"Token": "", "Debug_id": ""}
+
+        with open(CONFIG_FOLDER_PATH, "w+") as f:
+            json.dump(config_temp, f)
+
+        print(f"{time_now()} Config file not found, creating one...")
+        print(f"{time_now()} Please close the program and fill the config file with your token and debug id.")
+        exit()
