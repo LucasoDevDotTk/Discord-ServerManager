@@ -28,7 +28,7 @@ SOFTWARE.
 import os 
 import json
 
-from functions.functions import time_now
+from modules.functions import time_now
 
 
 def get_config(CONFIG_FOLDER_PATH):

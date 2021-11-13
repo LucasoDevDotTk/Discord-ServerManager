@@ -39,6 +39,34 @@ logo = """
 | |  | | (_| | | | | (_| | (_| |  __/ |   
 |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|   
                            __/ |          
-                          |___/             
+                          |___/                        
 """
+
+authors = """Copyright(c) 2021 lucaso60, Copyright(c) 2021 LEL Studios, Copyright(c) 2015-2021 Rapptz, Copyright(c) 2021-present Pycord Development
+
+"""
+
+app_info = """
+_____________________________________________________________________________________________________________________
+                                            
+                                            INFO
+                                
+                            BUILD           :  07NOV21a
+                            VERSION         :  0.0.4
+                            API             :  py-cord v2.0.0a
+                            LICENSE         :  MIT, see in LICENSE
+                            AUTHORS         :  Copyright (c) 2021 lucaso60,  
+                                               Copyright(c) 2021 LEL Studios,
+                                               Copyright (c) 2015-present Rapptz,
+                                               Copyright(c) 2021-present Pycord Development                                              
+                            PIP INSTALLS    :  pip install git+"https://github.com/Pycord-Development/pycord"
+_____________________________________________________________________________________________________________________
+
+
+"""
+
+print(logo)
+print(app_info)
+print(authors)
+
 

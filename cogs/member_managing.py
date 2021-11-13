@@ -27,41 +27,22 @@ SOFTWARE.
 
 import discord
 from discord.ext import commands
-from discord.commands import slash_command
-
-import os
-import json
-import sys
-
-from modules.functions import time_now, get_dir_config
-from modules.get_config_f import get_config
-import modules.start
+from discord.commands import slash_command, Option
 
 
-CONFIG_FOLDER_PATH = get_dir_config(os.path.dirname(__file__))
+class member_managing(commands.Cog):
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
 
-config_data = get_config(CONFIG_FOLDER_PATH)
-TOKEN = config_data["Token"]
-DEBUG_ID = config_data["Debug_id"]
+    @slash_command(name="kick")
+    async def kick(self, ctx: commands.Context, member: Option(discord.Member), *, reason: str = None):
+        if reason is None:
+            reason = "No reason given."
+        await member.kick(reason=reason)
+        await ctx.send(f"Kicked {member} for {reason}")
+        
+        
+        
 
-INTENTS = discord.Intents.default()
-INTENTS.members = True
-
-bot = commands.Bot(
-    debug_id=DEBUG_ID,
-    intents=INTENTS
-)
-
-
-@bot.event
-async def on_ready():
-    print(f"{time_now()} Discord-ServerManager is online as {bot.user}")
-    print(f"{time_now()} Discord-ServerManager is connected to {len(bot.guilds)} guild(s)")
-    print(f"{time_now()} Discord-ServerManager is connected to {len(bot.users)} user(s)")
-    print(f"{time_now()} Discord-ServerManager is running on OS ID: {os.name}")
-    print(f"{time_now()} Discord-ServerManager is running on Python {sys.version} with Pycord Version {discord.__version__}")
-
-bot.load_extension("cogs.member_managing")
-
-
-bot.run(TOKEN)
+def setup(bot: commands.Bot):
+    bot.add_cog(member_managing(bot))
