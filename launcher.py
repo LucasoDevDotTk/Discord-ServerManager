@@ -1,8 +1,8 @@
 """
 MIT License
 
-Copyright (c) 2021 lucaso60
-Copyright (c) 2021 LEL Studios
+Copyright (c) 2022 Lucas "Lucaso" Nguyen for Lucestra Studios
+Copyright (c) 2021 Lucestra Studios
 Copyright (c) 2015-2021 Rapptz
 Copyright (c) 2021-present Pycord Development
 
