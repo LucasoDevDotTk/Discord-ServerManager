@@ -25,19 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from datetime import datetime
+import discord
+from discord.ext import commands
+from discord.commands import slash_command, Option
 
-def time_now():
-    time = datetime.now()
-    current_time = time.strftime("%y-%m-%d %H:%M:%S")
-    now = current_time + " >"
-    return now
-
-def get_dir_config(file_dir):
-    path = f"{file_dir}\config.json"
-    return path
+from modules.functions import time_now
 
 
-def get_dir_cogs(file_dir):
-    path = f"{file_dir}\cogs"
-    return path
+
+class Test(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        
+    @slash_command(name="online")
+    async def online(self, ctx):
+        await ctx.send(f"I am online")
+        print(f"{time_now()} Online request from discord.com")
+
+
+
+def setup(bot):
+    bot.add_cog(Test(bot))
+>

@@ -40,9 +40,32 @@ class member_managing(commands.Cog):
             reason = "No reason given."
         await member.kick(reason=reason)
         await ctx.send(f"Kicked {member} for {reason}")
-        
-        
-        
+
+    @slash_command(name="ban")
+    async def ban(self, ctx: commands.Context, member: Option(discord.Member), *, reason: str = None):
+        if reason is None:
+            reason = "No reason given."
+        await member.ban(reason=reason)
+        await ctx.send(f"Banned {member} for {reason}")
+
+    @slash_command(name="unban")
+    async def unban(self, ctx: commands.Context, member):
+        banned_users = await ctx.guild.bans()
+        member_name, member_discriminator = member.split("#")
+        for ban_entry in banned_users:
+            user = ban_entry.user
+
+            if (user.name, user.discriminator) == (member_name, member_discriminator):
+                await ctx.guild.unban(user)
+                embed = discord.Embed(
+                    title="ServerManager - LOG", description=f"{ctx.author} unbanned {member}", color=discord.Color.green())
+                await ctx.send(embed=embed)
+                return
+
+        embed = discord.Embed(title="ServerManager - ERROR",
+                              description=f"{member} was not found!", color=discord.Color.red())
+        await ctx.send(embed=embed)
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(member_managing(bot))

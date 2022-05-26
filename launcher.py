@@ -33,12 +33,20 @@ import os
 import json
 import sys
 
-from modules.functions import time_now, get_dir_config
+from modules.functions import time_now, get_dir_config, get_dir_cogs
 from modules.get_config_f import get_config
 import modules.start
 
+if not os.name == "nt" or os.name == "posix":
+    print(
+        f"{time_now()} [!] Warning, your operating system have not been tested, and may not be compatible with this program! The program may fail at any time.")
+    print(f"{time_now()} [!] If you encounter any issues, please report them to us at GitHub")
+    
+
+
 
 CONFIG_FOLDER_PATH = get_dir_config(os.path.dirname(__file__))
+COG_FOLDER_PATH = get_dir_cogs(os.path.dirname(__file__))
 
 config_data = get_config(CONFIG_FOLDER_PATH)
 TOKEN = config_data["Token"]
@@ -61,7 +69,12 @@ async def on_ready():
     print(f"{time_now()} Discord-ServerManager is running on OS ID: {os.name}")
     print(f"{time_now()} Discord-ServerManager is running on Python {sys.version} with Pycord Version {discord.__version__}")
 
-bot.load_extension("cogs.member_managing")
+
+for filename in os.listdir(COG_FOLDER_PATH):
+    if filename.endswith(".py"):
+        bot.load_extension(f"cogs.{filename[:-3]}")
+        print(f"{time_now()} Cog {filename[:-3]} was loaded")
+print()
 
 
 bot.run(TOKEN)
